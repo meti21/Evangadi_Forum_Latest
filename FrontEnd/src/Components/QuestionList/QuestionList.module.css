@@ -1,0 +1,332 @@
+.questionsContainer {
+  background: #F5F5F5 !important;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  margin-bottom: 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #E8E8E8;
+  overflow: hidden;
+  position: relative;
+}
+
+.questionsContainer:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-color: #DADADA;
+}
+
+.questionsContainer hr {
+  display: none;
+}
+
+.askQuestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  gap: 20px;
+  position: relative;
+}
+
+.askUserInfo {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.askUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 90px;
+}
+
+.userIconLink {
+  display: block;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  padding: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+}
+
+.userIconLink:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
+}
+
+.userIconLink .icon {
+  color: #FFFFFF !important;
+  background: transparent;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.username {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4A4A4A !important;
+  text-align: center;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.askQuestionText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1A1A1A !important;
+  line-height: 1.3;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+.title:hover {
+  color: #667eea !important;
+  transform: translateX(2px);
+}
+
+.metaInfo {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.metaInfo span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666666 !important;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #FFFFFF !important;
+  border: 1px solid #E0E0E0 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  letter-spacing: 0.2px;
+}
+
+.metaInfo span:hover {
+  background: #FAFAFA !important;
+  color: #333333 !important;
+  border-color: #CCCCCC !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Status-specific styling */
+.metaInfo span:last-child {
+  font-weight: 700;
+}
+
+.metaInfo span:last-child:contains("✅") {
+  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%) !important;
+  color: #FFFFFF !important;
+  border-color: transparent !important;
+}
+
+.metaInfo span:last-child:contains("❌") {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important;
+  color: #8B4513 !important;
+  border-color: transparent !important;
+}
+
+.askArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.arrowLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF !important;
+  border: 2px solid #E8E8E8 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.arrowLink:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: transparent !important;
+  transform: translateX(6px) scale(1.05);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.arrowLink .icon {
+  color: #666666 !important;
+  transition: all 0.3s ease;
+}
+
+.arrowLink:hover .icon {
+  color: #FFFFFF !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .askQuestion {
+    padding: 20px;
+    gap: 16px;
+  }
+  
+  .askUserInfo {
+    gap: 16px;
+  }
+  
+  .userIconLink .icon {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .username {
+    font-size: 12px;
+    max-width: 70px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .metaInfo {
+    gap: 10px;
+  }
+  
+  .metaInfo span {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .askQuestion {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  
+  .askUserInfo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .askUser {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    min-width: auto;
+  }
+  
+  .username {
+    max-width: none;
+    text-align: left;
+  }
+  
+  .askArrow {
+    align-self: center;
+  }
+  
+  .metaInfo {
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+
+/* Focus styles for accessibility */
+.userIconLink:focus,
+.arrowLink:focus {
+  outline: 3px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Additional modern polish */
+.askQuestion::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.questionsContainer:hover .askQuestion::before {
+  opacity: 1;
+}
+
+/* Subtle animation for loading states */
+@keyframes modernShimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.questionsContainer.loading {
+  background: linear-gradient(90deg, #F5F5F5 25%, #EEEEEE 50%, #F5F5F5 75%) !important;
+  background-size: 200px 100%;
+  animation: modernShimmer 2s infinite;
+}
+
+/* Modern micro-interactions */
+.questionsContainer {
+  backdrop-filter: blur(10px);
+}
+
+.questionsContainer:hover {
+  backdrop-filter: blur(15px);
+}
+
+/* Typography enhancements */
+.title,
+.username,
+.metaInfo span {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.profilePic {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.profilePic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}

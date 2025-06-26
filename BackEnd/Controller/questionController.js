@@ -50,7 +50,7 @@ async function getSingleQuestion(req, res) {
     );
 
     const [question] = await dbConnection.query(
-      `SELECT q.*, u.userid, u.username 
+      `SELECT q.*, u.userid, u.username, u.profile_pic 
        FROM questions q 
        LEFT JOIN users u ON q.userid = u.userid 
        WHERE q.questionid = ?`,
@@ -87,6 +87,7 @@ SELECT
   q.createdate,
   q.userid,
   u.username,
+  u.profile_pic,
   q.views,
   COUNT(a.answerid) AS answerCount,
   COALESCE(SUM(av.vote), 0) AS totalVotes

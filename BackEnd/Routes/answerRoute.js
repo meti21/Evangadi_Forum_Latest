@@ -13,7 +13,7 @@ const {
 const authMiddleware = require("../MiddleWare/authMiddleWare");
 
 // protected route to post an answer
-router.post("/", postAnswer);
+router.post("/", authMiddleware, postAnswer);
 
 // protected route to get answer for a question
 router.get("/:questionid", getAnswersByQuestionId);
@@ -27,7 +27,7 @@ router.put("/:answerid", authMiddleware, updateAnswer);
 
 //route to delete
 
-router.delete("/:answerid",authMiddleware,deleteAnswer)
+router.delete("/:answerid", authMiddleware, deleteAnswer)
 
 
 module.exports = router;

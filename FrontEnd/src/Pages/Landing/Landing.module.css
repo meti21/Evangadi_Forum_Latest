@@ -1,0 +1,139 @@
+.landingContainer {
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Sticky header styling */
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+  background: rgba(30,30,60,0.5);
+  backdrop-filter: blur(6px);
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  color: #fff;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+/* Full-screen landing background */
+.landingBg {
+  min-height: 100vh;
+  width: 100vw;
+  background: url('../../assets/landing.jpg') center center/cover no-repeat fixed;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+.landingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 34, 54, 0.65);
+  z-index: 1;
+}
+
+.landingContent {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroTitle {
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 1400;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-size: 3.5rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.heroSubtitle {
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.ctaButton {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 32px;
+  background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 100%);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
+  box-shadow: 0 2px 8px rgba(255,126,95,0.10);
+  outline: none;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(255,126,95,0.18);
+  background: linear-gradient(90deg, #feb47b 0%, #ff7e5f 100%);
+}
+
+.secondaryButton {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 2px solid #fff;
+  margin-left: 0;
+}
+
+.secondaryButton:hover {
+  background: rgba(255,255,255,0.25);
+  color: #222;
+  border: 2px solid #feb47b;
+}
+
+@media (max-width: 600px) {
+  .heroTitle {
+    font-size: 1.3rem;
+  }
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
+  .ctaButton {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+  .buttonGroup {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

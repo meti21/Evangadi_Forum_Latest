@@ -1,0 +1,77 @@
+/* Import Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  color: #22223b;
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #22223b;
+  margin-top: 0;
+}
+
+a {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #764ba2;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+  background: #fff;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+button:disabled {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 2px #667eea33;
+  background: #f0f4ff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #e0e7ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #b4b8f8;
+  border-radius: 8px;
+}
+
+/* Remove default margin/padding */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+  

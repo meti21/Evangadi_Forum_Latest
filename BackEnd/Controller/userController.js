@@ -2,6 +2,9 @@ const dbConnection = require("../Db/dbConfig");
 const bcrypt = require("bcrypt"); // For password hashing
 const { StatusCodes } = require("http-status-codes"); // For standardized HTTP status codes
 const jwt = require("jsonwebtoken"); // For creating JSON Web Tokens
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 //* Function to handle user login
 async function login(req, res) {
@@ -55,7 +58,6 @@ async function login(req, res) {
       .status(StatusCodes.OK) // 200 OK: Login successful
       .json({ msg: "user login successful", token, username }); // Send token and username to frontend
   } catch (error) {
-    console.log("Login error:", error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR) // 500 Internal Server Error: Unexpected server issue
       .json({ msg: "something went wrong, try again later!" });
@@ -110,7 +112,6 @@ async function register(req, res) {
       .status(StatusCodes.CREATED)
       .json({ msg: "User registered successfully" });
   } catch (error) {
-    console.log("Registration error:", error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ msg: "An unexpected error occurred." });
@@ -122,11 +123,113 @@ async function checkUser(req, res) {
   const username = req.user.username;
   const userid = req.user.userid;
 
-  res.status(StatusCodes.OK).json({ msg: "valid user", username, userid });
+  try {
+    // Get user data including profile picture
+    const [user] = await dbConnection.query(
+      "SELECT username, userid, profile_pic FROM users WHERE userid = ?",
+      [userid]
+    );
+    
+    if (user.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({ msg: "User not found" });
+    }
+    
+    // Return user object in the format expected by frontend
+    res.status(StatusCodes.OK).json({
+      username: user[0].username, 
+      userid: user[0].userid,
+      profile_pic: user[0].profile_pic 
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Server error" });
+  }
+}
+
+//* Function to get user profile
+async function getProfile(req, res) {
+  const { userid } = req.user;
+  
+  try {
+    const [user] = await dbConnection.query(
+      "SELECT username, firstname, lastname, email, profile_pic FROM users WHERE userid = ?",
+      [userid]
+    );
+    
+    if (user.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({ msg: "User not found" });
+    }
+    
+    res.status(StatusCodes.OK).json(user[0]);
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Server error" });
+  }
+}
+
+//* Function to update user profile
+async function updateProfile(req, res) {
+  const { userid } = req.user;
+  const { firstname, lastname, email } = req.body;
+  
+  try {
+    // Check if email is already taken by another user
+    const [existingUser] = await dbConnection.query(
+      "SELECT userid FROM users WHERE email = ? AND userid != ?",
+      [email, userid]
+    );
+    
+    if (existingUser.length > 0) {
+      return res.status(StatusCodes.CONFLICT).json({ msg: "Email already in use" });
+    }
+    
+    await dbConnection.query(
+      "UPDATE users SET firstname = ?, lastname = ?, email = ? WHERE userid = ?",
+      [firstname, lastname, email, userid]
+    );
+    
+    res.status(StatusCodes.OK).json({ msg: "Profile updated successfully" });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Server error" });
+  }
+}
+
+//* Function to upload profile picture
+async function uploadProfilePic(req, res) {
+  const { userid } = req.user;
+  const { profilePicUrl } = req.body;
+  
+  try {
+    // Validate that profilePicUrl is provided
+    if (!profilePicUrl) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Profile picture URL is required" });
+    }
+
+    // Check if it's a base64 image (starts with data:image/)
+    if (!profilePicUrl.startsWith('data:image/')) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid image format" });
+    }
+
+    // Check base64 size (roughly 1MB limit for base64)
+    const base64Size = profilePicUrl.length * 0.75; // Base64 is about 75% larger than binary
+    if (base64Size > 1024 * 1024) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Image size too large (max 1MB)" });
+    }
+
+    await dbConnection.query(
+      "UPDATE users SET profile_pic = ? WHERE userid = ?",
+      [profilePicUrl, userid]
+    );
+    
+    res.status(StatusCodes.OK).json({ msg: "Profile picture updated successfully" });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Server error" });
+  }
 }
 
 module.exports = {
   register,
   login,
   checkUser,
+  getProfile,
+  updateProfile,
+  uploadProfilePic,
 };

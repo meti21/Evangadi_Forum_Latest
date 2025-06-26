@@ -1,0 +1,303 @@
+.questionBg {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 32px 0;
+}
+
+.questionContainer {
+  max-width: 600px;
+  margin: 2.5rem auto;
+  padding: 2.5rem 2rem;
+  background: rgba(255,255,255,0.97);
+  border-radius: 22px;
+  box-shadow: 0 6px 32px rgba(102, 126, 234, 0.13);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.sectionTitle {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #516cf0;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.stepsCard {
+  background: rgba(245, 247, 250, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(81, 108, 240, 0.07);
+  padding: 1.5rem 1.2rem;
+  margin-bottom: 2.2rem;
+}
+
+.stepsTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.stepsList {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.stepsList li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fff;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.listIcon {
+  color: #516cf0;
+}
+
+.postQuestionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.questionTitleInput,
+.questionDetailsTextarea,
+.tagInput,
+.selectTag {
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid #bfc9e0;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #f8faff;
+}
+
+.questionTitleInput:focus,
+.questionDetailsTextarea:focus,
+.tagInput:focus,
+.selectTag:focus {
+  border-color: #516cf0;
+  box-shadow: 0 0 8px rgba(81, 108, 240, 0.13);
+  outline: none;
+}
+
+.questionDetailsTextarea {
+  height: 140px;
+  resize: vertical;
+}
+
+.submitButton {
+  background: linear-gradient(90deg, #516cf0 0%, #667eea 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 12px rgba(81, 108, 240, 0.13);
+  letter-spacing: 0.5px;
+}
+
+.submitButton:hover {
+  background: linear-gradient(90deg, #ff8500 0%, #ffa44a 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(255,133,0,0.10);
+}
+
+.errorBox {
+  background-color: #ffe5e5;
+  color: #c0392b;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.successBox {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.tagSelectContainer {
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+/* Custom select styling */
+.select-arrow::after {
+  content: "▼";
+  font-size: 12px;
+  color: #666;
+  margin-left: 8px;
+}
+
+/* Fade-in animation for new tag input */
+.fadeIn {
+  animation: fadeInAnimation 0.5s ease forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.aiSuggestionSection {
+  margin-bottom: 1rem;
+}
+
+.aiButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.aiButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.aiButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.aiSuggestionsBox {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.aiSuggestionsBox h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.suggestionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.suggestionItem {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+.suggestionItem p {
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.useAiButton {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.useAiButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.dismissButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.dismissButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive design for AI components */
+@media (max-width: 768px) {
+  .aiButton {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  .aiSuggestionsBox {
+    padding: 1rem;
+  }
+  
+  .suggestionItem {
+    padding: 0.75rem;
+  }
+  
+  .useAiButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .questionContainer {
+    padding: 1.2rem 0.5rem;
+  }
+  .stepsCard {
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .questionContainer {
+    padding: 0.5rem 0.1rem;
+  }
+  .stepsCard {
+    padding: 0.5rem 0.1rem;
+  }
+}

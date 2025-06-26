@@ -23,6 +23,7 @@ const getAnswersByQuestionId = async (req, res) => {
          ANY_VALUE(a.views) as views,
          ANY_VALUE(a.edited) as edited,
          ANY_VALUE(u.username) as username,
+         ANY_VALUE(u.profile_pic) as profile_pic,
          COALESCE(SUM(av.vote), 0) AS totalVotes
        FROM answers a
        LEFT JOIN users u ON a.userid = u.userid
@@ -44,8 +45,6 @@ const getAnswersByQuestionId = async (req, res) => {
 async function upvoteDownvote(req, res) {
   const { answerid, vote } = req.body; // vote = 1 or -1
   const userid = req.user.userid;
-  console.log("Authenticated User ID:", req.user?.userid);
-
 
   if (![1, -1].includes(vote)) {
     return res.status(400).json({ msg: "Invalid vote value" });
@@ -83,6 +82,7 @@ async function upvoteDownvote(req, res) {
     res.status(500).json({ msg: "Vote failed", error: err.message });
   }
 }
+
 async function deleteAnswer(req, res) {
   const { answerid } = req.params;
   const { userid } = req.user;
@@ -97,10 +97,8 @@ async function deleteAnswer(req, res) {
   }
 
   res.json({ msg: "Answer deleted successfully" });
-
-
-  
 }
+
 //This file contains the logic for handling the incoming answer data, validating it, and storing it in the database.
 async function postAnswer(req, res) {
   //1. get data from request body
@@ -163,4 +161,4 @@ async function updateAnswer(req, res) {
   }
 }
 
-module.exports = { postAnswer, getAnswersByQuestionId, upvoteDownvote,updateAnswer,deleteAnswer };
+module.exports = { postAnswer, getAnswersByQuestionId, upvoteDownvote, updateAnswer, deleteAnswer };

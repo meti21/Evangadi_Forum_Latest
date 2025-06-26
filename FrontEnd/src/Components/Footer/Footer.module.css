@@ -1,0 +1,115 @@
+/* Global Styles */
+* {
+  list-style-type: none;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a:hover{
+  color:rgb(214, 208, 208);
+  text-decoration: none;
+}
+
+a{
+  text-decoration: none;
+  color: #989ca4;
+}
+
+html,
+body {
+  height: 100%; /* Ensures full height for body and html */
+}
+
+
+.footer_outer_container {
+  background-color: #3b455a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-top: auto; /* Pushes the footer to the bottom */
+  width: 100%;
+}
+
+.footer_inner_container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allows items to wrap on small screens */
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px; /* Limit the max width */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.footer_inner_container > div {
+  flex: 1 1 200px; /* Set minimum width for each section */
+}
+
+.logo_wrapper {
+  margin-bottom: 20px;
+}
+
+.footer_icons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.footer_icons li a {
+  color: white;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.footer_icons li a:hover {
+  color: #24a0ed;
+}
+
+.lists li {
+  color: #989ca4;
+  margin: 1vh;
+}
+
+@media screen and (max-width: 768px) {
+  .footer_inner_container {
+    flex-direction: row; /* Keep items side-by-side */
+    align-items: flex-start; /* Align items to top */
+    justify-content: space-around; /* Space them evenly */
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrap if space is too tight */
+  }
+
+  .footer_icons {
+    justify-content: flex-start;
+  }
+
+  .footer_inner_container > div {
+    flex: 1 1 150px; /* Shrink gracefully */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .footer_inner_container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    
+    gap: 15px;
+  }
+
+  .footer_icons {
+    justify-content: flex-start;
+  }
+
+  .footer_icons li a {
+    font-size: 20px;
+  }
+
+  .footer_inner_container > div {
+    flex: 1 1 100px;
+  }
+}

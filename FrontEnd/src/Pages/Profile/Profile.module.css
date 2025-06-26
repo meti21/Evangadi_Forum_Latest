@@ -1,0 +1,220 @@
+.profileContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.profileCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.profileTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.profilePictureSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.profilePictureContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.profilePicture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ff8401;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cameraButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #ff8401;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cameraButton:hover {
+  background: #e67300;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.formInput {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #ff8401;
+  box-shadow: 0 0 0 2px rgba(255, 132, 1, 0.1);
+}
+
+.formInput:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.saveButton,
+.cancelButton,
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.saveButton {
+  background-color: #ff8401;
+  border-color: #ff8401;
+}
+
+.saveButton:hover {
+  background-color: #e67300;
+  border-color: #e67300;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.cancelButton:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+.editButton {
+  background-color: #ff8401;
+  border-color: #ff8401;
+  margin-top: 1rem;
+}
+
+.editButton:hover {
+  background-color: #e67300;
+  border-color: #e67300;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.infoGroup label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.infoGroup p {
+  margin: 0;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  color: #333;
+  font-size: 1rem;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .profileContainer {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .profileCard {
+    padding: 1.5rem;
+  }
+
+  .profileTitle {
+    font-size: 1.5rem;
+  }
+
+  .profilePicture {
+    width: 120px;
+    height: 120px;
+  }
+
+  .cameraButton {
+    width: 35px;
+    height: 35px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .saveButton,
+  .cancelButton,
+  .editButton {
+    width: 100%;
+    justify-content: center;
+  }
+} 

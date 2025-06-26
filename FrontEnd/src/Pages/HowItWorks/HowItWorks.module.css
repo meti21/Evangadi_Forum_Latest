@@ -1,0 +1,264 @@
+.howtoContainer {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.howtoTitle {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #007bff;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+}
+
+.howtoTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #007bff;
+  border-radius: 2px;
+}
+
+.howtoSection {
+  margin-bottom: 35px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.howtoSection:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.2);
+}
+
+.howtoSection h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #222;
+  position: relative;
+  padding-left: 30px;
+}
+
+.howtoSection h2::before {
+  content: '🔍'; /* Placeholder icon, replace with real icon if desired */
+  position: absolute;
+  left: 0;
+  color: #007bff;
+  font-size: 20px;
+}
+
+.howtoSection p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.howtoSection ol,
+.howtoSection ul {
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+.howtoSection ol li,
+.howtoSection ul li {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #555;
+  position: relative;
+  padding-left: 15px;
+}
+
+.howtoSection ol li::before,
+.howtoSection ul li::before {
+  content: '•';
+  color: #007bff;
+  position: absolute;
+  left: -15px;
+  font-size: 18px;
+}
+
+.howtoSection ol li::marker,
+.howtoSection ul li::marker {
+  color: #007bff;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 800px) {
+  .howtoContainer {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .howtoTitle {
+    font-size: 28px;
+  }
+
+  .howtoSection {
+    padding: 15px;
+  }
+
+  .howtoSection h2 {
+    font-size: 20px;
+  }
+
+  .howtoSection p,
+  .howtoSection ol li,
+  .howtoSection ul li {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .howtoContainer {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .howtoTitle {
+    font-size: 24px;
+  }
+
+  .howtoSection h2 {
+    font-size: 18px;
+  }
+}
+
+.howItWorksBgModern {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+  padding: 40px 0;
+}
+
+.howtoContainerModern {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.howtoTitleModern {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 48px;
+  letter-spacing: 1.5px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+
+.stepCard {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0, 123, 255, 0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+  padding: 32px 24px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 340px;
+}
+
+.stepCard:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(0, 123, 255, 0.18), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.iconCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007bff 60%, #00c6ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+}
+
+.stepIcon {
+  color: #fff;
+  font-size: 2.2rem;
+}
+
+.stepTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.stepDescription {
+  font-size: 1.05rem;
+  color: #444;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.stepList {
+  margin: 0;
+  padding-left: 18px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.stepList li {
+  margin-bottom: 10px;
+  line-height: 1.7;
+  position: relative;
+}
+
+.stepList li::marker {
+  color: #00c6ff;
+  font-size: 1.1em;
+}
+
+@media (max-width: 700px) {
+  .howtoContainerModern {
+    padding: 12px 2vw;
+  }
+  .stepsGrid {
+    gap: 18px;
+  }
+  .stepCard {
+    padding: 20px 10px 18px 10px;
+    min-height: 260px;
+  }
+  .iconCircle {
+    width: 48px;
+    height: 48px;
+  }
+  .stepIcon {
+    font-size: 1.5rem;
+  }
+  .howtoTitleModern {
+    font-size: 2rem;
+  }
+}

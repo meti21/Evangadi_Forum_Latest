@@ -1,0 +1,337 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #181c24;
+}
+
+.aboutSection {
+  width: 100%;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../assets/landing.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.aboutSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 28, 36, 0.5); /* dark overlay for readability */
+  z-index: 1;
+}
+.aboutSection > * {
+  position: relative;
+  z-index: 2;
+}
+
+.formContainer {
+  margin-top: -60px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formCard {
+  width: 100%;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.3rem;
+}
+.subtitle {
+  font-size: 1.15rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.formInput {
+  width: 100%;
+}
+.formInputInput,
+.passwordInputInput {
+  width: 100%;
+  padding: 1.1rem 1.2rem;
+  font-size: 1.18rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: #fff;
+  color: #222;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.formInputInput::placeholder,
+.passwordInputInput::placeholder {
+  color: #999;
+}
+.formInputInput:focus,
+.passwordInputInput:focus {
+  outline: none;
+  border-color: #ff8500;
+  box-shadow: 0 0 8px rgba(255, 133, 0, 0.2);
+  background: #fff;
+}
+.passwordInput {
+  position: relative;
+}
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  font-size: 1.25rem;
+  padding: 0;
+}
+.registerButton {
+  background: linear-gradient(90deg, #ff8502 60%, #ff6b35 100%);
+  color: #fff;
+  border: none;
+  padding: 1.2rem 0;
+  font-size: 1.18rem;
+  font-weight: 700;
+  border-radius: 2.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.3rem;
+  box-shadow: 0 4px 16px rgba(255,133,2,0.3);
+}
+.registerButton:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff6b35 0%, #ff8502 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(255,133,2,0.4);
+}
+.registerButton:disabled {
+  background: #bbb;
+  cursor: not-allowed;
+}
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3.5px solid rgba(255, 255, 255, 0.6);
+  border-top: 3.5px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.errorMessage {
+  font-size: 1rem;
+  color: #dc3545;
+  margin-top: 0.5rem;
+  text-align: center;
+  background: rgba(220, 53, 69, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid rgba(220, 53, 69, 0.2);
+}
+.signinLink {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+}
+.signinLinkA {
+  color: #ff8500;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.signinLinkA:hover,
+.signinLinkA:focus {
+  color: #e67300;
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .formCard {
+    padding: 1.2rem 0.5rem;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+}
+
+.registerRoot {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.registerHeader, .registerFooter {
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.logo {
+  height: 40px;
+}
+.registerMain {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+.registerFormSection {
+  flex: 0.4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem 4rem;
+  max-width: none;
+}
+.registerTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+.input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1.5px solid #e0e0e0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+.registerBtn {
+  width: 100%;
+  background: #ffb366;
+  color: #222;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.registerBtn:hover {
+  background: #ff8500;
+  color: #fff;
+}
+.signinRow {
+  text-align: center;
+  color: #888;
+}
+.signinLink {
+  color: #ff8500;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+.registerImageSection {
+  flex: 0.6;
+  background: url('/src/assets/Image1.jpg') center center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+.registerImageOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(24, 28, 36, 0.55); /* dark overlay for readability */
+  z-index: 1;
+}
+.registerImageOverlay > * {
+  position: relative;
+  z-index: 2;
+}
+.marketingContent {
+  color: #fff;
+  text-align: left;
+  max-width: 400px;
+}
+.marketingContent h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.marketingContent span {
+  color: #ffb366;
+  font-weight: 700;
+}
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-right: -10px;
+}
+@media (max-width: 900px) {
+  .registerMain {
+    flex-direction: column;
+  }
+  .registerFormSection, .registerImageSection {
+    max-width: 100%;
+    width: 100%;
+  }
+  .registerImageSection {
+    min-height: 220px;
+    order: -1;
+  }
+}
+.registerFooter {
+  border-top: 1px solid #eee;
+  border-bottom: none;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  background: #fff;
+}
+.registerFooter nav {
+  display: flex;
+  gap: 2rem;
+}
+.footerSocials {
+  display: flex;
+  gap: 1rem;
+}
