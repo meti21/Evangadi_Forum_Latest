@@ -77,15 +77,26 @@ async function register(req, res) {
   // Asynchronous function for DB and hashing
   const { username, firstname, lastname, email, password } = req.body; // Get all registration fields
 
+  console.log('Registration attempt:', { username, firstname, lastname, email, password: password ? '[HIDDEN]' : 'MISSING' });
+
   // Validate that all required fields are provided
   if (!email || !password || !firstname || !lastname || !username) {
-    // Corrected: Added opening curly brace here
+    console.log('Missing required fields:', { email: !!email, password: !!password, firstname: !!firstname, lastname: !!lastname, username: !!username });
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please provide all required fields" });
   }
 
   try {
+    // Check if database is connected
+    if (!dbConnection) {
+      console.error('Database connection not available');
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ msg: "Database connection error" });
+    }
+
+    console.log('Checking if user already exists...');
     // Check if user already exists with provided username or email
     const [user] = await dbConnection.query(
       "SELECT username, userid FROM users WHERE username = ? OR email = ?",
@@ -93,6 +104,7 @@ async function register(req, res) {
     );
 
     if (user.length > 0) {
+      console.log('User already exists:', { username, email });
       // If user found, registration fails
       return res
         .status(StatusCodes.CONFLICT)
@@ -101,28 +113,43 @@ async function register(req, res) {
 
     // password must be at least 8 characters
     if (password.length < 8) {
+      console.log('Password too short:', password.length);
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "Password must be at least 8 characters" });
     }
 
+    console.log('Hashing password...');
     // Encrypt the password using bcrypt
     const salt = await bcrypt.genSalt(10); // Generates a salt (random value for hashing)
     const hashedPassword = await bcrypt.hash(password, salt); // Hashes the password with the salt
 
+    console.log('Inserting new user into database...');
     // Insert new user into the database
     await dbConnection.query(
       "INSERT INTO users (username, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?)",
       [username, firstname, lastname, email, hashedPassword] // Values to insert
     );
 
+    console.log('User registered successfully:', { username, email });
     return res
       .status(StatusCodes.CREATED)
       .json({ msg: "User registered successfully" });
   } catch (error) {
+    console.error('Registration error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      sqlMessage: error.sqlMessage,
+      sqlState: error.sqlState
+    });
+    
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "An unexpected error occurred." });
+      .json({ 
+        msg: "An unexpected error occurred.",
+        error: process.env.NODE_ENV === 'development' ? error.message : 'Registration failed'
+      });
   }
 }
 

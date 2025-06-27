@@ -103,6 +103,32 @@ app.get('/cors-test', (req, res) => {
   });
 });
 
+// Database test endpoint
+app.get('/db-test', async (req, res) => {
+  try {
+    if (!process.env.DATABASE_URL) {
+      return res.status(500).json({ 
+        message: 'DATABASE_URL not configured',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    const result = await dbConnection.query("SELECT 'test' as status");
+    res.status(200).json({ 
+      message: 'Database connection successful',
+      result: result[0],
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Database test error:', error);
+    res.status(500).json({ 
+      message: 'Database connection failed',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // DB connection and table schemas
 const dbConnection = require("./Db/dbConfig");
 const {

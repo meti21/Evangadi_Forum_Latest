@@ -2,10 +2,10 @@ const dbConnection = require('../Db/dbConfig');
 
 const users = `CREATE TABLE IF NOT EXISTS users (
   userid SERIAL PRIMARY KEY,
-  username VARCHAR(20) NOT NULL,
+  username VARCHAR(20) NOT NULL UNIQUE,
   firstname VARCHAR(20) NOT NULL,
   lastname VARCHAR(20) NOT NULL,
-  email VARCHAR(40) NOT NULL,
+  email VARCHAR(40) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
   profile_pic TEXT DEFAULT NULL
 );`;
