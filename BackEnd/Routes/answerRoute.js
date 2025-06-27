@@ -21,13 +21,10 @@ router.get("/:questionid", getAnswersByQuestionId);
 // route to upvote/downvote
 router.post('/vote', authMiddleware, upvoteDownvote);
 
-//route to edit 
-
+// route to edit answer
 router.put("/:answerid", authMiddleware, updateAnswer);
 
-//route to delete
-
-router.delete("/:answerid", authMiddleware, deleteAnswer)
-
+// route to delete answer
+router.delete("/:answerid", authMiddleware, deleteAnswer);
 
 module.exports = router;

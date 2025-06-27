@@ -76,7 +76,6 @@ const authMiddleware = require("./MiddleWare/authMiddleWare");
 app.use("/api/users", userRoutes);
 app.use("/api/answer", answersRoute);
 app.use("/api/question", questionRoutes);
-app.use("/api/answer/:answerid", answersRoute);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

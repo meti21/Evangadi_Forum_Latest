@@ -2,7 +2,6 @@ const dbConnection = require("../Db/dbConfig");
 const bcrypt = require("bcrypt"); // For password hashing
 const { StatusCodes } = require("http-status-codes"); // For standardized HTTP status codes
 const jwt = require("jsonwebtoken"); // For creating JSON Web Tokens
-const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
