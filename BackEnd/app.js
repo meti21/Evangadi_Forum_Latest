@@ -2,6 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
+// Environment variable validation
+const requiredEnvVars = ['JWT_SECRET'];
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingEnvVars.length > 0) {
+  console.warn(`Warning: Missing environment variables: ${missingEnvVars.join(', ')}`);
+  console.warn("Server will start but some features may not work properly.");
+}
+
 const app = express();
 const PORT = process.env.PORT || 2112;
 
@@ -12,8 +21,8 @@ const corsOptions = {
     'http://localhost:3000', // Alternative local port
     'https://evangadi-forum-frontend.vercel.app', // Vercel deployment
     'https://evangadi-forum-frontend.netlify.app', // Netlify deployment
-    process.env.FRONTEND_URL // Environment variable for custom frontend URL
-  ].filter(Boolean), // Remove any undefined values
+    process.env.FRONTEND_URL 
+  ].filter(Boolean), 
   credentials: true, // Allow cookies and authentication headers
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -74,8 +83,15 @@ async function start() {
   let dbConnected = false;
   
   try {
+    // Check if DATABASE_URL is available
+    if (!process.env.DATABASE_URL) {
+      console.log("DATABASE_URL not found in environment variables. Starting server without database connection.");
+      throw new Error("DATABASE_URL not configured");
+    }
+    
     await dbConnection.query("SELECT 'test'"); // Test DB connection
     dbConnected = true;
+    console.log("Database connected successfully");
     
     // Create tables
     await dbConnection.query(users);
@@ -84,16 +100,22 @@ async function start() {
     //added tables
     await dbConnection.query(createAnswerVotes);
     await dbConnection.query(createAnswerComments);
+    console.log("Database tables created/verified successfully");
   } catch (error) {
-    console.log("Starting server without database connection for testing...");
+    console.log("Database connection failed:", error.message);
+    console.log("Starting server without database connection. Some features may not work.");
   }
   
   // Start server regardless of database connection
   app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
     if (!dbConnected) {
       console.log("Note: Database is not connected. Some features may not work.");
     }
   });
 }
 
-start();
+start().catch(error => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
+});

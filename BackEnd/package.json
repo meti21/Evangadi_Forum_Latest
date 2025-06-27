@@ -10,7 +10,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "build": "echo 'No build step required for Node.js'"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   },
   "author": "",
   "license": "ISC",
