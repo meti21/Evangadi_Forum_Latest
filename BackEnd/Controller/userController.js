@@ -45,6 +45,14 @@ async function login(req, res) {
     // If Password matches, extract user data from database result
     const { username, userid } = user[0]; // Destructure relevant user info
 
+    // Check if JWT_SECRET is available
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET is not defined in environment variables');
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ msg: "Server configuration error" });
+    }
+
     // Generate a JSON Web Token (JWT) for authentication
     const token = jwt.sign(
       // Creates a JWT
@@ -58,6 +66,7 @@ async function login(req, res) {
       .status(StatusCodes.OK) // 200 OK: Login successful
       .json({ msg: "user login successful", token, username }); // Send token and username to frontend
   } catch (error) {
+    console.error('Login error:', error);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR) // 500 Internal Server Error: Unexpected server issue
       .json({ msg: "something went wrong, try again later!" });
