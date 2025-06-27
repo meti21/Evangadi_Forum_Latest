@@ -19,22 +19,60 @@ console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 
 // CORS configuration
 const corsOptions = {
-  origin: [
-    'http://localhost:5173', // Local development
-    'http://localhost:3000', // Alternative local port
-    'https://evangadi-forum-frontend.vercel.app', // Vercel deployment
-    'https://evangadi-forum-frontend.netlify.app', // Netlify deployment
-    process.env.FRONTEND_URL 
-  ].filter(Boolean), 
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) {
+      console.log('✅ Allowing request with no origin');
+      return callback(null, true);
+    }
+    
+    const allowedOrigins = [
+      'http://localhost:5173', // Local development
+      'http://localhost:3000', // Alternative local port
+      'https://evangadi-forum-frontend.vercel.app', // Vercel deployment
+      'https://evangadi-forum-frontend.netlify.app', // Netlify deployment
+      'https://evangadi-forum-frontend-o8f8tg6jc-metis-projects-cc5af67c.vercel.app', // Your actual Vercel domain
+      'https://evangadi-forum-frontend-git-main-metis-projects-cc5af67c.vercel.app', // Your git-main branch domain
+      process.env.FRONTEND_URL // Environment variable
+    ].filter(Boolean);
+    
+    // Allow all Vercel domains (including branch deployments)
+    if (origin.includes('vercel.app') || origin.includes('vercel.com')) {
+      console.log('✅ Allowing Vercel domain:', origin);
+      return callback(null, true);
+    }
+    
+    // Check if origin is in allowed list
+    if (allowedOrigins.includes(origin)) {
+      console.log('✅ Allowing specific domain:', origin);
+      return callback(null, true);
+    }
+    
+    console.log('❌ CORS blocked origin:', origin);
+    console.log('Allowed origins:', allowedOrigins);
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true, // Allow cookies and authentication headers
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'],
+  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  preflightContinue: false,
+  maxAge: 86400 // Cache preflight response for 24 hours
 };
 
 // Global middlewares
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// CORS debugging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - Origin: ${req.headers.origin || 'No origin'}`);
+  next();
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -52,6 +90,15 @@ app.get('/health', (req, res) => {
 app.get('/test', (req, res) => {
   res.status(200).json({ 
     message: 'Backend is working!',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// CORS test endpoint
+app.get('/cors-test', (req, res) => {
+  res.status(200).json({ 
+    message: 'CORS is working!',
+    origin: req.headers.origin,
     timestamp: new Date().toISOString()
   });
 });

@@ -16,8 +16,8 @@ Set these environment variables in your Render dashboard:
 
 ### 3. FRONTEND_URL (Optional)
 - **Description**: Your frontend deployment URL for CORS
-- **Example**: `https://your-frontend-app.vercel.app`
-- **Required**: No (has fallbacks)
+- **Example**: `https://evangadi-forum-frontend-o8f8tg6jc-metis-projects-cc5af67c.vercel.app`
+- **Required**: No (CORS now handles all Vercel domains automatically)
 
 ### 4. PORT (Optional)
 - **Description**: Port number for the server
@@ -53,8 +53,9 @@ Set these environment variables in your Render dashboard:
 - Check Render logs for specific error messages
 
 ### CORS Errors
-- Ensure FRONTEND_URL is set correctly
-- Check that your frontend domain is in the allowed origins list
+- **Fixed**: CORS now automatically allows all Vercel domains
+- If still having issues, set FRONTEND_URL to your exact Vercel domain
+- Check backend logs for CORS debugging information
 
 ### Database Connection Issues
 - Verify DATABASE_URL format
