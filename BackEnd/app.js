@@ -14,6 +14,9 @@ if (missingEnvVars.length > 0) {
 const app = express();
 const PORT = process.env.PORT || 2112;
 
+console.log(`Starting server on port: ${PORT}`);
+console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+
 // CORS configuration
 const corsOptions = {
   origin: [
@@ -91,15 +94,48 @@ app.use('*', (req, res) => {
 
 // Start server immediately and handle database connection in background
 function startServer() {
-  const server = app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-  
-  // Set server timeout
-  server.timeout = 30000; // 30 seconds
-  
-  return server;
+  try {
+    const server = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`✅ Server is running on port ${PORT}`);
+      console.log(`✅ Server bound to 0.0.0.0:${PORT}`);
+      console.log(`✅ Health check available at: http://0.0.0.0:${PORT}/health`);
+    });
+    
+    // Set server timeout
+    server.timeout = 30000; // 30 seconds
+    
+    // Handle server errors
+    server.on('error', (error) => {
+      console.error('❌ Server error:', error);
+      if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`);
+      }
+      process.exit(1);
+    });
+    
+    return server;
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
 }
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received, shutting down gracefully');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
+});
 
 // Handle database connection in background
 async function initializeDatabase() {
