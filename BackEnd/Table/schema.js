@@ -31,11 +31,6 @@ const answers = `CREATE TABLE IF NOT EXISTS answers (
   updated_at TIMESTAMP NULL DEFAULT NULL
 );`;
 
-// New upgrade queries
-// const alterAnswers = ...
-// const alterQuestions = ...
-// const alterUsers = ...
-
 const createAnswerVotes = `CREATE TABLE IF NOT EXISTS answer_votes (
   voteid SERIAL PRIMARY KEY,
   answerid INTEGER NOT NULL REFERENCES answers(answerid) ON DELETE CASCADE,
@@ -58,34 +53,6 @@ module.exports = {
   users,
   questions,
   answers,
-  // alterAnswers,
-  // alterQuestions,
-  // alterUsers,
   createAnswerVotes,
   createAnswerComments,
-};
-
-// Add a helper to check if a column exists before altering
-async function addColumnIfNotExists(table, column, definition) {
-  const [rows] = await dbConnection.query(`SHOW COLUMNS FROM \`${table}\` LIKE ?`, [column]);
-  if (rows.length === 0) {
-    await dbConnection.query(`ALTER TABLE \`${table}\` ADD COLUMN ${column} ${definition}`);
-  }
-}
-
-// In your migration logic, replace direct ALTER TABLE with:
-(async () => {
-  try {
-    await dbConnection.query('CREATE TABLE IF NOT EXISTS users (userid INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255), profile_pic LONGTEXT)');
-    await addColumnIfNotExists('users', 'profile_pic', 'LONGTEXT');
-    await dbConnection.query('CREATE TABLE IF NOT EXISTS questions (questionid INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, createdate DATETIME, userid INT, views INT DEFAULT 0)');
-    await addColumnIfNotExists('questions', 'views', 'INT DEFAULT 0');
-    await dbConnection.query('CREATE TABLE IF NOT EXISTS answers (answerid INT AUTO_INCREMENT PRIMARY KEY, answer TEXT, createdate DATETIME, userid INT, questionid INT, views INT DEFAULT 0)');
-    await addColumnIfNotExists('answers', 'views', 'INT DEFAULT 0');
-    // ... other migrations ...
-    await addColumnIfNotExists('users', 'password_reset_token', 'VARCHAR(255) NULL');
-    await addColumnIfNotExists('users', 'token_expiry', 'DATETIME NULL');
-  } catch (err) {
-    console.error('Migration error:', err);
-  }
-})();
+}; 

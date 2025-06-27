@@ -20,7 +20,7 @@ async function createQuestion(req, res) {
     await dbConnection.query(
       `
       INSERT INTO questions (userid, title, description, tag )
-      VALUES (?, ?, ?, ?)
+      VALUES ($1, $2, $3, $4)
     `,
       [userid, title, description, tag]
     );
@@ -45,17 +45,18 @@ async function getSingleQuestion(req, res) {
   try {
     // Increment question views
     await dbConnection.query(
-      `UPDATE questions SET views = views + 1 WHERE questionid = ?`,
+      `UPDATE questions SET views = views + 1 WHERE questionid = $1`,
       [questionid]
     );
 
-    const [question] = await dbConnection.query(
+    const result = await dbConnection.query(
       `SELECT q.*, u.userid, u.username, u.profile_pic 
        FROM questions q 
        LEFT JOIN users u ON q.userid = u.userid 
-       WHERE q.questionid = ?`,
+       WHERE q.questionid = $1`,
       [questionid]
     );
+    const question = result.rows;
 
     if (question.length === 0) {
       return res.status(StatusCodes.BAD_REQUEST).json({
@@ -78,8 +79,8 @@ async function getSingleQuestion(req, res) {
 
 const getAllQuestions = async (req, res) => {
   try {
-    // The mysql2 package returns array with 2 elements from .query():
-    const [questions] = await dbConnection.query(`
+    // The pg package returns result object with rows property
+    const result = await dbConnection.query(`
 SELECT 
   q.questionid,
   q.title,
@@ -101,6 +102,7 @@ ORDER BY q.createdate DESC;
 
 
     `);
+    const questions = result.rows;
 
     if (questions.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({
@@ -134,10 +136,11 @@ async function updateQuestion(req, res) {
 
   try {
     // Check if the question exists and belongs to the user
-    const [question] = await dbConnection.query(
-      `SELECT userid FROM questions WHERE questionid = ?`,
+    const result = await dbConnection.query(
+      `SELECT userid FROM questions WHERE questionid = $1`,
       [questionid]
     );
+    const question = result.rows;
 
     if (question.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({
@@ -153,7 +156,7 @@ async function updateQuestion(req, res) {
 
     // Update the question
     await dbConnection.query(
-      `UPDATE questions SET title = ?, description = ?, tag = ? WHERE questionid = ?`,
+      `UPDATE questions SET title = $1, description = $2, tag = $3 WHERE questionid = $4`,
       [title, description, tag, questionid]
     );
 
@@ -175,10 +178,11 @@ async function deleteQuestion(req, res) {
 
   try {
     // Check if the question exists and belongs to the user
-    const [question] = await dbConnection.query(
-      `SELECT userid FROM questions WHERE questionid = ?`,
+    const result = await dbConnection.query(
+      `SELECT userid FROM questions WHERE questionid = $1`,
       [questionid]
     );
+    const question = result.rows;
 
     if (question.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({
@@ -193,7 +197,7 @@ async function deleteQuestion(req, res) {
     }
 
     // Delete the question
-    await dbConnection.query(`DELETE FROM questions WHERE questionid = ?`, [
+    await dbConnection.query(`DELETE FROM questions WHERE questionid = $1`, [
       questionid,
     ]);
 
@@ -210,9 +214,9 @@ async function deleteQuestion(req, res) {
 }
 
 module.exports = {
-  getAllQuestions,
-  getSingleQuestion,
   createQuestion,
+  getSingleQuestion,
+  getAllQuestions,
   updateQuestion,
   deleteQuestion,
 };

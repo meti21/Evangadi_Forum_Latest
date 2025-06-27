@@ -116,7 +116,7 @@ app.get('/db-test', async (req, res) => {
     const result = await dbConnection.query("SELECT 'test' as status");
     res.status(200).json({ 
       message: 'Database connection successful',
-      result: result[0],
+      result: result.rows[0],
       timestamp: new Date().toISOString()
     });
   } catch (error) {
@@ -221,7 +221,7 @@ async function initializeDatabase() {
     }
     
     console.log("Attempting to connect to database...");
-    await dbConnection.query("SELECT 'test'"); // Test DB connection
+    await dbConnection.query("SELECT 'test' as status"); // Test DB connection
     dbConnected = true;
     console.log("Database connected successfully");
     

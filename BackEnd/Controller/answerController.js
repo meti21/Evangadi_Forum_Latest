@@ -8,31 +8,32 @@ const getAnswersByQuestionId = async (req, res) => {
   try {
     // Increment views for answers of this question (optional)
     await dbConnection.query(
-      `UPDATE questions SET views = views + 1 WHERE questionid = ?`,
+      `UPDATE questions SET views = views + 1 WHERE questionid = $1`,
       [questionid]
     );
 
     // Fetch answers along with total votes per answer
-    const [answers] = await dbConnection.query(
+    const result = await dbConnection.query(
       `SELECT
          a.answerid,
          a.userid,
          a.questionid,
          a.answer,
-         ANY_VALUE(a.createdate) as createdate,
-         ANY_VALUE(a.views) as views,
-         ANY_VALUE(a.edited) as edited,
-         ANY_VALUE(u.username) as username,
-         ANY_VALUE(u.profile_pic) as profile_pic,
+         a.createdate,
+         a.views,
+         a.edited,
+         u.username,
+         u.profile_pic,
          COALESCE(SUM(av.vote), 0) AS totalVotes
        FROM answers a
        LEFT JOIN users u ON a.userid = u.userid
        LEFT JOIN answer_votes av ON a.answerid = av.answerid
-       WHERE a.questionid = ?
-       GROUP BY a.answerid
-       ORDER BY createdate DESC`,
+       WHERE a.questionid = $1
+       GROUP BY a.answerid, a.userid, a.questionid, a.answer, a.createdate, a.views, a.edited, u.username, u.profile_pic
+       ORDER BY a.createdate DESC`,
       [questionid]
     );
+    const answers = result.rows;
 
     res.status(200).json({ answers });
   } catch (err) {
@@ -52,30 +53,32 @@ async function upvoteDownvote(req, res) {
 
   try {
     // Check if user has already voted
-    const [existingVotes] = await dbConnection.query(
-      `SELECT * FROM answer_votes WHERE answerid = ? AND userid = ?`,
+    const result = await dbConnection.query(
+      `SELECT * FROM answer_votes WHERE answerid = $1 AND userid = $2`,
       [answerid, userid]
     );
+    const existingVotes = result.rows;
 
     if (existingVotes.length > 0) {
       // Update vote
       await dbConnection.query(
-        `UPDATE answer_votes SET vote = ?, created_at = CURRENT_TIMESTAMP WHERE answerid = ? AND userid = ?`,
+        `UPDATE answer_votes SET vote = $1, created_at = CURRENT_TIMESTAMP WHERE answerid = $2 AND userid = $3`,
         [vote, answerid, userid]
       );
     } else {
       // Insert new vote
       await dbConnection.query(
-        `INSERT INTO answer_votes (answerid, userid, vote) VALUES (?, ?, ?)`,
+        `INSERT INTO answer_votes (answerid, userid, vote) VALUES ($1, $2, $3)`,
         [answerid, userid, vote]
       );
     }
 
     // Optionally return total vote count
-    const [[{ totalVotes }]] = await dbConnection.query(
-      `SELECT COALESCE(SUM(vote), 0) as totalVotes FROM answer_votes WHERE answerid = ?`,
+    const voteResult = await dbConnection.query(
+      `SELECT COALESCE(SUM(vote), 0) as totalVotes FROM answer_votes WHERE answerid = $1`,
       [answerid]
     );
+    const totalVotes = voteResult.rows[0].totalvotes;
 
     res.status(200).json({ msg: "Vote recorded", totalVotes });
   } catch (err) {
@@ -87,12 +90,12 @@ async function deleteAnswer(req, res) {
   const { answerid } = req.params;
   const { userid } = req.user;
 
-  const [result] = await dbConnection.query(
-    "DELETE FROM answers WHERE answerid = ? AND userid = ?",
+  const result = await dbConnection.query(
+    "DELETE FROM answers WHERE answerid = $1 AND userid = $2",
     [answerid, userid]
   );
 
-  if (result.affectedRows === 0) {
+  if (result.rowCount === 0) {
     return res.status(403).json({ msg: "Not authorized to delete this answer" });
   }
 
@@ -114,7 +117,7 @@ async function postAnswer(req, res) {
   try {
     //3.database insertion
     await dbConnection.query(
-      "INSERT INTO answers(userid, questionid, answer) VALUES (?,?,?)",
+      "INSERT INTO answers(userid, questionid, answer) VALUES ($1,$2,$3)",
       [userid, questionid, answer]
     );
     //4. send success response
@@ -141,17 +144,18 @@ async function updateAnswer(req, res) {
   }
 
   try {
-    const [existing] = await dbConnection.query(
-      `SELECT * FROM answers WHERE answerid = ? AND userid = ?`,
+    const result = await dbConnection.query(
+      `SELECT * FROM answers WHERE answerid = $1 AND userid = $2`,
       [answerid, userid]
     );
+    const existing = result.rows;
 
     if (existing.length === 0) {
       return res.status(403).json({ msg: "Unauthorized or answer not found" });
     }
 
     await dbConnection.query(
-      `UPDATE answers SET answer = ?, edited = true, updated_at = CURRENT_TIMESTAMP WHERE answerid = ?`,
+      `UPDATE answers SET answer = $1, edited = true, updated_at = CURRENT_TIMESTAMP WHERE answerid = $2`,
       [answer, answerid]
     );
 
