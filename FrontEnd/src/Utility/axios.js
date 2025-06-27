@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Fallback URL for production if environment variable is not set
+const baseURL = import.meta.env.VITE_BASE_URL || "https://evangadi-forum-backend-latest.onrender.com";
+
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: baseURL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,11 +23,19 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('API Error:', error);
+    
     if (error.response?.status === 401) {
       localStorage.removeItem("authToken");
       // Remove the window.location.href redirect to prevent navigation issues
       // The ProtectedRoute component will handle redirecting unauthenticated users
     }
+    
+    // Log network errors for debugging
+    if (error.code === 'NETWORK_ERROR' || error.code === 'ERR_NETWORK') {
+      console.error('Network error - check if backend is accessible at:', baseURL);
+    }
+    
     return Promise.reject(error);
   }
 );

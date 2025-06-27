@@ -7,5 +7,8 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "VITE_BASE_URL": "https://evangadi-forum-backend-latest.onrender.com"
+  }
 }
