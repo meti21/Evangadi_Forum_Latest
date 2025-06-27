@@ -38,6 +38,17 @@ app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
     message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    port: PORT,
+    database: process.env.DATABASE_URL ? 'configured' : 'not configured'
+  });
+});
+
+// Simple test endpoint
+app.get('/test', (req, res) => {
+  res.status(200).json({ 
+    message: 'Backend is working!',
     timestamp: new Date().toISOString()
   });
 });
@@ -78,44 +89,62 @@ app.use('*', (req, res) => {
   res.status(404).json({ msg: 'Route not found' });
 });
 
-// Start server and create tables
-async function start() {
+// Start server immediately and handle database connection in background
+function startServer() {
+  const server = app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+  
+  // Set server timeout
+  server.timeout = 30000; // 30 seconds
+  
+  return server;
+}
+
+// Handle database connection in background
+async function initializeDatabase() {
   let dbConnected = false;
   
   try {
     // Check if DATABASE_URL is available
     if (!process.env.DATABASE_URL) {
-      console.log("DATABASE_URL not found in environment variables. Starting server without database connection.");
-      throw new Error("DATABASE_URL not configured");
+      console.log("DATABASE_URL not found in environment variables. Server running without database connection.");
+      return false;
     }
     
+    console.log("Attempting to connect to database...");
     await dbConnection.query("SELECT 'test'"); // Test DB connection
     dbConnected = true;
     console.log("Database connected successfully");
     
     // Create tables
+    console.log("Creating/verifying database tables...");
     await dbConnection.query(users);
     await dbConnection.query(questions);
     await dbConnection.query(answers);
-    //added tables
     await dbConnection.query(createAnswerVotes);
     await dbConnection.query(createAnswerComments);
     console.log("Database tables created/verified successfully");
+    
+    return true;
   } catch (error) {
     console.log("Database connection failed:", error.message);
-    console.log("Starting server without database connection. Some features may not work.");
+    console.log("Server running without database connection. Some features may not work.");
+    return false;
   }
-  
-  // Start server regardless of database connection
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    if (!dbConnected) {
-      console.log("Note: Database is not connected. Some features may not work.");
-    }
-  });
 }
 
-start().catch(error => {
-  console.error("Failed to start server:", error);
-  process.exit(1);
+// Start server immediately
+const server = startServer();
+
+// Initialize database in background
+initializeDatabase().then(dbConnected => {
+  if (dbConnected) {
+    console.log("Server fully initialized with database connection");
+  } else {
+    console.log("Server running without database connection");
+  }
+}).catch(error => {
+  console.error("Database initialization error:", error);
+  console.log("Server running without database connection");
 });
