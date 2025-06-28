@@ -69,6 +69,7 @@ const Home = () => {
   const fetchQuestions = async () => {
     try {
       const response = await questionsAPI.getAllQuestions();
+      console.log("Raw API response:", response);
       if (response.status === 200 && response.data.questions) {
         console.log("Questions data:", response.data.questions);
         // Debug: Log each question's answerCount
@@ -81,7 +82,7 @@ const Home = () => {
         setError("No questions available");
       }
     } catch (err) {
-      console.error(err);
+      console.error("API Error:", err);
       setError("No questions available");
     } finally {
       setLoading(false);
