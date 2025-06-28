@@ -460,9 +460,9 @@ const AnswerPage = () => {
 
           <div className={styles.postAnswerSection}>
             <h3 className={styles.sectionTitle}>Answer The Top Question</h3>
-            {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+            {errorMessage && <div className="global-error">{errorMessage}</div>}
             {successMessage && (
-              <div className={styles.successBox}>
+              <div className="global-success">
                 <p>{successMessage}</p>
                 <div className={styles.navigationOptions}>
                   <Link to="/home" className={styles.navButton}>

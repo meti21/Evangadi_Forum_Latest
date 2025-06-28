@@ -110,7 +110,7 @@ const Register = () => {
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </span>
             </div>
-            {error && <div className={styles.errorMessage}>{error}</div>}
+            {error && <div className="global-error">{error}</div>}
             <button type="submit" className={styles.registerBtn}>Register</button>
           </form>
           <div className={styles.signinRow}>

@@ -100,9 +100,9 @@ function QuestionPage() {
             </li>
           </ul>
         </div>
-        {error && <div className={styles.errorBox}>{error}</div>}
+        {error && <div className="global-error">{error}</div>}
         {success && (
-          <div className={styles.successBox}>
+          <div className="global-success">
             <p>{success}</p>
           </div>
         )}

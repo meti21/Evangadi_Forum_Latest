@@ -74,7 +74,7 @@ const SignIn = () => {
             </div>
             <button type="submit" className={styles.signinBtn}>Login</button>
           </form>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className="global-error">{error}</div>}
           <div className={styles.signupRow}>
             Don't have an account? <Link to="/register" className={styles.signupLink}>Sign Up</Link>
           </div>
