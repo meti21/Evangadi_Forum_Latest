@@ -225,20 +225,6 @@ const AnswerPage = () => {
   return (
     <div className={styles.answerBg}>
       <div className="appContainer">
-        <div className={styles.topSection}>
-          <div className={styles.questionInfo}>
-            {question && (
-              <>
-                <h2 className={styles.sectionTitle}>QUESTION</h2>
-                <h3 className={styles.title}>💬 {question.title}</h3>
-                <p className={styles.body}>{question.description}</p>
-                <p>
-                  <strong>Tag:</strong> {question.tag || "No tag"}
-                </p>
-              </>
-            )}
-          </div>
-        </div>
         <div className="card">
           {question ? (
             <>
