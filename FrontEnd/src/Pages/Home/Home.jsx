@@ -163,8 +163,8 @@ const totalPages = Math.ceil(allQuestions.length / itemsPerPage);
                     userId={q.userid}
                     questionId={q.questionid}
                     views={q.views}
-                    answerCount={q.answerCount || 0}
-                    totalVotes={parseInt(q.totalVotes) || 0}
+                    answerCount={q.answercount || 0}
+                    totalVotes={parseInt(q.totalvotes) || 0}
                     profilePic={q.profile_pic}
                   />
                 ))
