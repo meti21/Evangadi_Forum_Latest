@@ -16,6 +16,10 @@ const SignIn = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (error) {
+      setError("");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -39,6 +43,11 @@ const SignIn = () => {
         {/* Left: Form */}
         <section className={styles.signinFormSection}>
           <h1 className={styles.signinTitle}>Login</h1>
+          {error && (
+            <div className="global-error" style={{marginBottom: '1rem'}}>
+              {error}
+            </div>
+          )}
           <form className={styles.signinForm} onSubmit={handleSubmit}>
             <label className={styles.label}>Email</label>
             <input
@@ -75,11 +84,6 @@ const SignIn = () => {
             </div>
             <button type="submit" className={styles.signinBtn}>Login</button>
           </form>
-          {error && (
-            <div className="global-error" style={{marginTop: '1rem', marginBottom: '1rem'}}>
-              {error}
-            </div>
-          )}
           <div className={styles.signupRow}>
             Don't have an account? <Link to="/register" className={styles.signupLink}>Sign Up</Link>
           </div>
