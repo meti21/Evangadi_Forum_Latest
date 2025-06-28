@@ -71,6 +71,10 @@ const Home = () => {
       const response = await questionsAPI.getAllQuestions();
       if (response.status === 200 && response.data.questions) {
         console.log("Questions data:", response.data.questions);
+        // Debug: Log each question's answerCount
+        response.data.questions.forEach((q, index) => {
+          console.log(`Question ${index + 1}: answerCount = ${q.answerCount}, type = ${typeof q.answerCount}`);
+        });
         setAllQuestions(response.data.questions);
         setError("");
       } else {
@@ -164,7 +168,7 @@ const totalPages = Math.ceil(allQuestions.length / itemsPerPage);
                     userId={q.userid}
                     questionId={q.questionid}
                     views={q.views}
-                    answerCount={parseInt(q.answerCount) || 0}
+                    answerCount={q.answerCount || 0}
                     totalVotes={parseInt(q.totalVotes) || 0}
                     profilePic={q.profile_pic}
                   />
