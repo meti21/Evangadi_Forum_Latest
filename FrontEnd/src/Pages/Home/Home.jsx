@@ -69,13 +69,7 @@ const Home = () => {
   const fetchQuestions = async () => {
     try {
       const response = await questionsAPI.getAllQuestions();
-      console.log("Raw API response:", response);
       if (response.status === 200 && response.data.questions) {
-        console.log("Questions data:", response.data.questions);
-        // Debug: Log each question's answerCount
-        response.data.questions.forEach((q, index) => {
-          console.log(`Question ${index + 1}: answerCount = ${q.answerCount}, type = ${typeof q.answerCount}`);
-        });
         setAllQuestions(response.data.questions);
         setError("");
       } else {

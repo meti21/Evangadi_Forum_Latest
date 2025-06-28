@@ -15,13 +15,6 @@ const QuestionList = ({
   // Ensure answerCount is a number
   const numericAnswerCount = Number(answerCount) || 0;
   const isAnswered = numericAnswerCount > 0;
-  
-  // Debug logging
-  console.log(`QuestionList Debug - Question ${questionId}:`);
-  console.log(`  - Raw answerCount: ${answerCount} (type: ${typeof answerCount})`);
-  console.log(`  - Numeric answerCount: ${numericAnswerCount} (type: ${typeof numericAnswerCount})`);
-  console.log(`  - isAnswered: ${isAnswered}`);
-  console.log(`  - Title: ${title}`);
 
   return (
     <div className={styles.questionsContainer}>
