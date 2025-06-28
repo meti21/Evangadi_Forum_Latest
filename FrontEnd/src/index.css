@@ -84,63 +84,49 @@ code {
 
 /* Global Error Message Styles */
 .global-error {
-  background: #fee2e2;
-  color: #dc2626 !important;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin: 12px 0;
-  font-weight: 500;
-  font-size: 14px;
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 8px 0;
+  font-size: 13px;
   border: 1px solid #fecaca;
-  line-height: 1.4;
-  text-align: left;
-  position: relative;
-  display: block;
-  width: 100%;
-  max-width: 100%;
+  line-height: 1.3;
 }
 
 .global-error::before {
   content: "⚠️ ";
-  margin-right: 6px;
-  font-size: 14px;
+  margin-right: 4px;
+  font-size: 12px;
 }
 
 .global-error p {
   margin: 0;
-  font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   color: #dc2626;
 }
 
 /* Global Success Message Styles */
 .global-success {
-  background: #dcfce7;
-  color: #166534 !important;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin: 12px 0;
-  font-weight: 500;
-  font-size: 14px;
+  background: #f0fdf4;
+  color: #166534;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 8px 0;
+  font-size: 13px;
   border: 1px solid #bbf7d0;
-  line-height: 1.4;
-  text-align: left;
-  position: relative;
-  display: block;
-  width: 100%;
-  max-width: 100%;
+  line-height: 1.3;
 }
 
 .global-success::before {
   content: "✅ ";
-  margin-right: 6px;
-  font-size: 14px;
+  margin-right: 4px;
+  font-size: 12px;
 }
 
 .global-success p {
   margin: 0;
-  font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   color: #166534;
 }
 
