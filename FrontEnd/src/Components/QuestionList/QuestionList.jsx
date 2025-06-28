@@ -12,7 +12,12 @@ const QuestionList = ({
   views = 0,
   profilePic,
 }) => {
-  const isAnswered = answerCount > 0;
+  // Ensure answerCount is a number
+  const numericAnswerCount = Number(answerCount) || 0;
+  const isAnswered = numericAnswerCount > 0;
+  
+  // Debug logging
+  console.log(`Question ${questionId}: answerCount = ${answerCount}, numericAnswerCount = ${numericAnswerCount}, type = ${typeof numericAnswerCount}, isAnswered = ${isAnswered}`);
 
   return (
     <div className={styles.questionsContainer}>
@@ -47,7 +52,7 @@ const QuestionList = ({
             <p className={styles.title}>{title}</p>
 
             <div className={styles.metaInfo}>
-              <span>💬 {answerCount} answers</span>
+              <span>💬 {numericAnswerCount} answers</span>
               <span>👍 {totalVotes} votes</span>
               <span>👁️ {views} views</span>
               <span>{isAnswered ? "✅ Answered" : "❌ Unanswered"}</span>
