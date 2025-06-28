@@ -17,7 +17,7 @@ const Home = () => {
   const [sortOption, setSortOption] = useState("newest");
   const [currentPage, setCurrentPage] = useState(1);
   
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
 
   useEffect(() => {
     fetchQuestions();

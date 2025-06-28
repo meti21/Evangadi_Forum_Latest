@@ -289,12 +289,14 @@
 
 /* Post Answer Section */
 .postAnswerSection {
-  background: #fff !important;
+  background: #f8faff !important;
   border-radius: 24px;
   padding: 32px;
+  margin-bottom: 32px;
   box-shadow: 0 4px 24px rgba(102, 126, 234, 0.10);
   border: 1.5px solid #e3e8f0 !important;
   position: relative;
+  overflow: hidden;
 }
 
 .postAnswerSection::before {
@@ -304,7 +306,31 @@
   top: 0;
   bottom: 0;
   width: 6px;
-  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%) !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Edit Answer Section */
+.editAnswerSection {
+  background: #f8faff !important;
+  border-radius: 24px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 24px rgba(102, 126, 234, 0.10);
+  border: 1.5px solid #e3e8f0 !important;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease;
+}
+
+.editAnswerSection::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   border-radius: 0 4px 4px 0;
 }
 

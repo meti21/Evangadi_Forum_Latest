@@ -355,27 +355,29 @@ const AnswerPage = () => {
                       )}
                       <div>
                         {isEditing ? (
-                          <>
+                          <div className={styles.editAnswerSection}>
+                            <h3 className={styles.sectionTitle}>Edit Your Answer</h3>
                             <textarea
                               value={editedText}
                               onChange={(e) => setEditedText(e.target.value)}
                               className={styles.textarea}
+                              placeholder="Your edited answer..."
                             />
-                            <div style={{ marginTop: "0.5rem" }}>
+                            <div className={styles.buttonGroup}>
                               <button
                                 onClick={() => handleUpdateAnswer(answer.answerid)}
                                 className={styles.postButton}
                               >
-                                Save
+                                💾 Save Changes
                               </button>
                               <button
                                 onClick={() => setEditingAnswerId(null)}
                                 className={styles.cancelButton}
                               >
-                                Cancel
+                                ❌ Cancel
                               </button>
                             </div>
-                          </>
+                          </div>
                         ) : (
                           <>
                             <p>{answer.answer}</p>
