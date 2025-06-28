@@ -84,51 +84,58 @@ code {
 
 /* Global Error Message Styles */
 .global-error {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
-  color: #FFFFFF !important;
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin: 16px 0;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
-  border: 1px solid rgba(255, 107, 107, 0.3);
+  background: linear-gradient(135deg, #ff3b3b 0%, #ff6b6b 100%);
+  color: #fff !important;
+  padding: 18px 24px;
+  border-radius: 14px;
+  margin: 18px 0;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 6px 24px rgba(255, 59, 59, 0.18);
+  border: 2px solid #ff3b3b;
   animation: fadeIn 0.3s ease;
-  line-height: 1.5;
+  line-height: 1.6;
   text-align: center;
   position: relative;
   overflow: hidden;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  letter-spacing: 0.5px;
 }
 
 .global-error::before {
   content: "⚠️ ";
-  margin-right: 8px;
-  font-size: 16px;
+  margin-right: 10px;
+  font-size: 18px;
 }
 
 .global-error p {
   margin: 0;
-  font-weight: 600;
-  font-size: 14px;
-  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
 }
 
 /* Global Success Message Styles */
 .global-success {
   background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%) !important;
   color: #FFFFFF !important;
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin: 16px 0;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 4px 12px rgba(132, 250, 176, 0.2);
-  border: 1px solid rgba(132, 250, 176, 0.3);
-  animation: fadeIn 0.3s ease;
-  line-height: 1.5;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  padding: 16px 20px !important;
+  border-radius: 12px !important;
+  margin: 16px 0 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  box-shadow: 0 4px 12px rgba(132, 250, 176, 0.2) !important;
+  border: 1px solid rgba(132, 250, 176, 0.3) !important;
+  animation: fadeIn 0.3s ease !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .global-success::before {
@@ -138,9 +145,9 @@ code {
 }
 
 .global-success p {
-  margin: 0;
-  font-weight: 600;
-  font-size: 14px;
+  margin: 0 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
   color: #FFFFFF !important;
 }
 

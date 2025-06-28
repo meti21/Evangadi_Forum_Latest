@@ -26,6 +26,7 @@ const SignIn = () => {
     if (result.success) {
       navigate("/home");
     } else {
+      console.log("Login error:", result.message);
       setError(result.message);
     }
   };
@@ -74,7 +75,11 @@ const SignIn = () => {
             </div>
             <button type="submit" className={styles.signinBtn}>Login</button>
           </form>
-          {error && <div className="global-error">{error}</div>}
+          {error && (
+            <div className="global-error" style={{marginTop: '1rem', marginBottom: '1rem'}}>
+              {error}
+            </div>
+          )}
           <div className={styles.signupRow}>
             Don't have an account? <Link to="/register" className={styles.signupLink}>Sign Up</Link>
           </div>
