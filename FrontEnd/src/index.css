@@ -94,6 +94,23 @@ code {
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
   border: 1px solid rgba(255, 107, 107, 0.3);
   animation: fadeIn 0.3s ease;
+  line-height: 1.5;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.global-error::before {
+  content: "⚠️ ";
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.global-error p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF !important;
 }
 
 /* Global Success Message Styles */
@@ -108,6 +125,23 @@ code {
   box-shadow: 0 4px 12px rgba(132, 250, 176, 0.2);
   border: 1px solid rgba(132, 250, 176, 0.3);
   animation: fadeIn 0.3s ease;
+  line-height: 1.5;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.global-success::before {
+  content: "✅ ";
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.global-success p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF !important;
 }
 
 @keyframes fadeIn {

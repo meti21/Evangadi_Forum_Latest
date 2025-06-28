@@ -103,7 +103,7 @@ function QuestionPage() {
         {error && <div className="global-error">{error}</div>}
         {success && (
           <div className="global-success">
-            <p>{success}</p>
+            {success}
           </div>
         )}
         <form onSubmit={handleSubmit} className={styles.postQuestionForm}>

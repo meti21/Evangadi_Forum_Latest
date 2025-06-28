@@ -22,6 +22,20 @@ const Home = () => {
   useEffect(() => {
     fetchQuestions();
     
+    // Check if questions need to be refreshed (after posting an answer)
+    const questionsUpdated = localStorage.getItem('questionsUpdated');
+    if (questionsUpdated === 'true') {
+      fetchQuestions();
+      localStorage.removeItem('questionsUpdated');
+    }
+    
+    // Refresh questions when user returns to the page (e.g., from answer page)
+    const handleFocus = () => {
+      fetchQuestions();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    
     // Prevent browser back button from going beyond home page
     const handleBeforeUnload = (e) => {
       if (window.history.length > 1) {
@@ -48,6 +62,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('focus', handleFocus);
     };
   }, [navigate]);
 
@@ -55,6 +70,7 @@ const Home = () => {
     try {
       const response = await questionsAPI.getAllQuestions();
       if (response.status === 200 && response.data.questions) {
+        console.log("Questions data:", response.data.questions);
         setAllQuestions(response.data.questions);
         setError("");
       } else {
@@ -148,8 +164,8 @@ const totalPages = Math.ceil(allQuestions.length / itemsPerPage);
                     userId={q.userid}
                     questionId={q.questionid}
                     views={q.views}
-                    answerCount={q.answerCount || 0}
-                    totalVotes={q.totalVotes || 0}
+                    answerCount={parseInt(q.answerCount) || 0}
+                    totalVotes={parseInt(q.totalVotes) || 0}
                     profilePic={q.profile_pic}
                   />
                 ))

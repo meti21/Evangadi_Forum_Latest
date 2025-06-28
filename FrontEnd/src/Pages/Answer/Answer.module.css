@@ -142,7 +142,7 @@
 .buttonGroup {
   display: flex;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: 20px;
 }
 /* Answer Section */
 .answerSection {
@@ -320,7 +320,6 @@
   border: 1.5px solid #e3e8f0 !important;
   position: relative;
   overflow: hidden;
-  animation: fadeIn 0.5s ease;
 }
 
 .editAnswerSection::before {

@@ -95,6 +95,18 @@ const AnswerPage = () => {
       setAnswers(updated.data.answers);
       setNewAnswer("");
       setSuccessMessage("✅ Answer posted!");
+      
+      // Refresh the questions list to update answer count
+      try {
+        const questionsResponse = await questionsAPI.getAllQuestions();
+        if (questionsResponse.status === 200 && questionsResponse.data.questions) {
+          // Update localStorage or trigger a refresh of the home page
+          localStorage.setItem('questionsUpdated', 'true');
+        }
+      } catch (err) {
+        console.error("Failed to refresh questions:", err);
+      }
+      
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err) {
       const msg = err.response?.data?.msg || "Failed to post answer.";
@@ -463,7 +475,7 @@ const AnswerPage = () => {
             {errorMessage && <div className="global-error">{errorMessage}</div>}
             {successMessage && (
               <div className="global-success">
-                <p>{successMessage}</p>
+                {successMessage}
                 <div className={styles.navigationOptions}>
                   <Link to="/home" className={styles.navButton}>
                     Go to Question page
