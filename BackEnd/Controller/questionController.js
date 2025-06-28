@@ -90,7 +90,7 @@ SELECT
   u.username,
   u.profile_pic,
   q.views,
-  COUNT(a.answerid) AS answerCount,
+  CAST(COUNT(a.answerid) AS INTEGER) AS answerCount,
   0 AS totalVotes
 FROM questions q
 LEFT JOIN users u ON q.userid = u.userid
