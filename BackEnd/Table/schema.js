@@ -55,4 +55,4 @@ module.exports = {
   answers,
   createAnswerVotes,
   createAnswerComments,
-}; 
+};
